@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1 class="page-header">Properties</h1>
+<h1 class="page-header">Showing Available Properties</h1>
 
 {% include 'flash_messages.html' %}
 
-<div class="all-properties">
+<div class="properties">
+
     {% for property in properties %}
     <div class="property">
-        <img src="{{ url_for('get_uploaded_images', filename=property.photo) }}" alt ="Photo of the Property"> <br />
-        <p class="property-title">{{ property.title }}</p>
-        <p class="property-location">{{ property.location }}</p>
-        <p class="property-price">{{ property.price }}</p>
-        <a href="{{ url_for('specific_property', property_id=property.id) }}" class="go-to">View Property</a>
+        <img src="{{ url_for('get_uploaded_images', filename=property.photo) }}" alt ="Property Photo"> <br />
+        <p class="p-title">{{ property.title }}</p>
+        <p class="p-location">{{ property.location }}</p>
+        <div class="money">
+        <p class="p-price">${{ property.price }}</p>
+        </div>
+        <div class="link">
+        <a href="{{ url_for('specific_property', property_id=property.id) }}" class="click">View Property</a>
+        </div>
         
     </div>
     {% endfor %}

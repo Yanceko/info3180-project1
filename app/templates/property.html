@@ -2,52 +2,52 @@
 
 {% block main %}
 
-<h1 class="page-header">Add New Property</h1>
+<h1 class="page-header">Create New Property</h1>
 
 <form id="property-form" action="{{ url_for('new_property') }}" method="POST" enctype="multipart/form-data">
     {{ form.csrf_token }}
 
-    <div class="input-group">
+    <div class="form_title">
         <p class="form-title">{{ form.title.label }}</p>
-        {{ form.title(class="form-inputs") }}
+        {{ form.title(class="form-title") }}
     </div>
 
-    <div class="input-group">
+    <div class="form_description">
         <p class="form-title">{{ form.description.label }}</p>
-        {{ form.description(class="form-inputs") }}
+        {{ form.description(class="form-description") }}
     </div>
 
     
     <div class="grid">
-        <div class="input-group">
+        <div class="form_rooms">
             <p class="form-title">{{ form.rooms.label }}</p> 
-            {{ form.rooms(class="form-inputs", placeholder="3") }}
+            {{ form.rooms(class="form-rooms", placeholder="4") }}
         </div>
 
-        <div class="input-group">
+        <div class="form_bathrooms">
             <p class="form-title">{{ form.bathrooms.label }}</p> 
-            {{ form.bathrooms(class="form-inputs", placeholder="2") }}
+            {{ form.bathrooms(class="form-bathrooms", placeholder="2") }}
         </div>
 
-        <div class="input-group">
+        <div class="form_price">
             <p class="form-title">{{ form.price.label }}</p> 
-            {{ form.price(class="form-inputs", placeholder="15,000,000") }}
+            {{ form.price(class="form-price", placeholder="30,000,000") }}
         </div>
 
-        <div class="input-group">
+        <div class="form_type">
             <p class="form-title">{{ form.type.label }}</p>
-            {{ form.type(class="form-inputs", placeholder="House") }}
+            {{ form.type(class="form-type", placeholder="House") }}
         </div>
     </div>
 
-    <div class="input-group">
+    <div class="form_location">
         <p class="form-title">{{ form.location.label }}</p>
-        {{ form.location(class="form-inputs", placeholder="10 Waterloo Rd") }}
+        {{ form.location(class="form-location", placeholder="5 Musgrave Drive") }}
     </div>
 
-    <div class="input-group">
+    <div class="form_photo">
         <p class="form-title">{{ form.photo.label }}</p>
-        {{ form.photo(class="form-inputs") }}
+        {{ form.photo(class="form-photo") }}
     </div>
 
     <button name="submit" type="submit" class="btn">Add Property</button>

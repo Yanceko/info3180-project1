@@ -1,35 +1,35 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1 class="page-header">Properties</h1>
+<h1 class="page-header">Property</h1>
 
 {% include 'flash_messages.html' %}
 
-<div class="single">
+<div class="all">
 
-    <div class="left">
+    <div class="left-image">
         <img class ="property-img" src = "{{ url_for('get_uploaded_images', filename=property.photo) }}" alt ="Photo of the Property">
     </div>
 
-    <div class="right">
+    <div class="right-info">
 
-        <p class="property-title">{{ property.title }}</p>
+        <p class="property-title">Title:{{ property.title }}</p>
         
-        <div class="pair">
-            <p class="property-price">{{ property.price }}</p>
-            <p class="property-type">{{ property.type }}</p>
+        <div class="couple">
+            <p class="property-price">Price:$ {{ property.price }}</p>
+            <p class="property-type">Type: {{ property.type }}</p>
         </div>
 
-        <p class="property-description">{{ property.description }}</p>
+        <p class="property-description">Description: {{ property.description }}</p>
         
-        <div class="pair">
-            <p class="property-bedrooms">{{ property.bedrooms }}</p>
-            <p class="property-bathrooms">{{ property.bathrooms }}</p>
+        <div class="couple">
+            <p class="property-bedrooms">Number of Bedrooms: {{ property.bedrooms }}</p>
+            <p class="property-bathrooms">Number of Bathrooms: {{ property.bathrooms }}</p>
         </div>
         
-        <p class="property-location">{{ property.location }}</p>
+        <p class="property-location">Location : {{ property.location }}</p>
         
-        <button class="special">Email Realtor</button>
+        <button class="unique">Email Realtor</button>
     </div>
 
 </div>

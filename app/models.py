@@ -43,16 +43,16 @@ class UserProfile(db.Model):
 class Property(db.Model):
 
     # Attributes
-    __tablename__ = 'Properties'  # Table Name
+    #__tablename__ = 'Property'  # Table Name
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True , autoincrement=True)
     title = db.Column(db.String(100))
-    description = db.Column(db.Text())
+    description = db.Column(db.String(255))
     bedrooms = db.Column(db.String(10))
     bathrooms = db.Column(db.String(10))
     price = db.Column(db.String(30))
     type = db.Column(db.String(20))
-    location = db.Column(db.String(200), unique=True)
+    location = db.Column(db.String(200))
     photo = db.Column(db.String(150))
 
 
@@ -62,7 +62,7 @@ class Property(db.Model):
         self.bedrooms = bedrooms
         self.bathrooms = bathrooms
         self.price = price
-        self.p_type = type
+        self.type = type
         self.location = location
         self.photo = photo
     # --------------------------------------------------------------------
@@ -81,6 +81,6 @@ class Property(db.Model):
         return str(self.id)
     
     def __repr__(self):
-        return '<Property %r>' % self.title
+        return '<Property %r>' % (self.title)
 
     

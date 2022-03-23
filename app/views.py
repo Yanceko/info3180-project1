@@ -20,17 +20,11 @@ import psycopg2
 ###
 # Routing for your application.
 #### Script for iterating
-def get_uploaded_images():
+@app.route('/uploads/<filename>')
+def get_uploaded_images(filename):
 
-    f_list = list()
-    rootdir = os.path.join(app.config['UPLOAD_FOLDER'])
-
-    for subdir, dirs, files in os.walk(rootdir):
-
-        for file in files:
-            f_list.append(file)
-
-    return f_list
+    rootdir = os.getcwd()
+    return  send_from_directory(os.path.join(rootdir,app.config['UPLOAD_FOLDER']), filename)
 
 @app.route('/')
 def home():
@@ -80,14 +74,14 @@ def login():
 
 @app.route('/properties/create', methods=['GET', 'POST'])
 def new_property():
-    # Loads up the form
+    # Get the Property Form
     property_form = PropertyForm()
 
     # Checks for method type and validatation
     if request.method == 'POST':
         if property_form.validate_on_submit():
 
-            # Collect the data from the form
+            # Get data from the form
             title = property_form.title.data
             description = property_form.description.data
             rooms = property_form.rooms.data
@@ -100,13 +94,13 @@ def new_property():
             filename = secure_filename(photo.filename)
             photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            # Property Object is created
+            # A Property Object is created
             my_property = Property(title, description, rooms, bathrooms, price, type, location, filename)
             db.session.add(my_property)
             db.session.commit()
 
             # Redirects user to the Properties page
-            flash('New Property Added Successfully!', 'success')
+            flash('New Property Was Successfully Added! ', 'success')
             return redirect(url_for('all_properties'))
     else:
         flash_errors(property_form)
@@ -116,25 +110,17 @@ def new_property():
 @app.route('/properties/')
 def all_properties():
 
-    # Connect to the database
-    # db = connect_db()
-    # cur = db.cursor()
-
-    # cur.executes('SELECT * FROM property')
-    # properties = cur.fetchall()
     properties = Property.query.all()
 
     return render_template('properties.html', properties=properties)
 
 @app.route('/property/<property_id>')
-@login_required
 def specific_property(property_id):
     property_id = int(property_id)
 
-    # Locates the Property with the matching ID
-    my_property = Property.query.filter_by(id=property_id).first()
+    selected_property = Property.query.filter_by(id=property_id).first()
 
-    return render_template('show_property.html', property=my_property)
+    return render_template('show_property.html', property=selected_property)
 
 
 
@@ -147,8 +133,6 @@ def load_user(id):
 
 #Step 10- logging out user route
 @app.route("/logout/")
-@login_required
-
 def logout():
 
     logout_user()
@@ -173,7 +157,6 @@ def flash_errors(form):
 
 #Step 9- Creating the /secure-page route
 @app.route('/secure_page/')
-@login_required
 def secure_page():
 
     return render_template('secure_page.html')
